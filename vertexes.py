@@ -84,7 +84,7 @@ def get_vertexes_house():
 
 def get_vertexes_person():
     '''
-
+        Generates the cylinder and the sphere for the person
     '''
 
     cyl = cylinder(0.1,0.5)
@@ -97,3 +97,23 @@ def get_vertexes_person():
     print(size)
 
     return vertexes, size
+
+def get_vertexes_ground():
+
+    # Preparing space for 40 vertexes using 3 coordinates (x,y,z).
+    vertexes = np.zeros(8, [("position", np.float32, 3)])
+    # Filling the coordinates of each vertex.
+    vertexes['position'] = [
+        # Surface  1.
+        (-1, -0.2, -0.4),
+        (-1, 0.2, -0.2),         
+        (0, -0.2, +0.4),
+        (0, 0.2, +0.2),
+
+        # Surface 2.
+        (0, -0.2, 0.4),
+        (0, 0.2, 0.2),         
+        (1, -0.1, 1),
+        (1, 0.3, 1),
+    ]
+    return vertexes, len(vertexes)
