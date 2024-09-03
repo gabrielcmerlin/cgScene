@@ -17,37 +17,32 @@ def draw_house(loc_transformation, loc_color):
     mat_transform = mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
-    # Drawing and painting the cube parts.
-    glUniform4f(loc_color, 1, 0, 0, 1.0) ### vermelho
+    # Drawing and painting the shadowed cube parts.
+    glUniform4f(loc_color, 0.74, 0.74, 0.32, 1.0) # baixo
+    glDrawArrays(GL_TRIANGLE_STRIP, 4, 4)
+    glUniform4f(loc_color, 0.74, 0.74, 0.32, 1.0) # direita
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)
 
-    glUniform4f(loc_color, 0, 0, 1, 1.0) ### azul
-    glDrawArrays(GL_TRIANGLE_STRIP, 4, 4)
-    
-    glUniform4f(loc_color, 0, 1, 0, 1.0) ### verde
+    # Drawing and painting the lighted cube parts.
+    glUniform4f(loc_color, 0.97, 0.97, 0.41, 1.0) # frente
     glDrawArrays(GL_TRIANGLE_STRIP, 8, 4)
-    
-    glUniform4f(loc_color, 1, 1, 0, 1.0) ### amarela
+    glUniform4f(loc_color, 0.97, 0.97, 0.41, 1.0) # atrás
     glDrawArrays(GL_TRIANGLE_STRIP, 12, 4)
-    
-    glUniform4f(loc_color, 0.5, 0.5, 0.5, 1.0) ### cinza
+    glUniform4f(loc_color, 0.97, 0.97, 0.41, 1.0) # esquerda
     glDrawArrays(GL_TRIANGLE_STRIP, 16, 4)
-    
-    glUniform4f(loc_color, 0.5, 0, 0, 1.0) ### marrom
+    glUniform4f(loc_color, 0.97, 0.97, 0.41, 1.0) # cima
     glDrawArrays(GL_TRIANGLE_STRIP, 20, 4)
 
-    # Drawing and painting the pyramid parts.
-    glUniform4f(loc_color, 0, 1, 0, 1.0) ### verde
+    # Drawing and painting the shadowed pyramid parts.
+    glUniform4f(loc_color, 0.75, 0.38, 0, 1.0) # baixo
     glDrawArrays(GL_TRIANGLE_STRIP, 24, 4)
-
-    glUniform4f(loc_color, 0.5, 0.5, 0.5, 1.0) ### cinza
+    glUniform4f(loc_color, 0.75, 0.38, 0, 1.0) # direita
     glDrawArrays(GL_TRIANGLES, 28, 3)
 
-    glUniform4f(loc_color, 0, 0, 1, 1.0) ### azul
+    # Drawing and painting the lighted pyramid parts.
+    glUniform4f(loc_color, 0.88, 0.44, 0, 1.0) # frente
     glDrawArrays(GL_TRIANGLES, 31, 3)
-
-    glUniform4f(loc_color, 0.5, 0, 0, 1.0) ### marrom
+    glUniform4f(loc_color, 0.88, 0.44, 0, 1.0) # atrás
     glDrawArrays(GL_TRIANGLES, 34, 3)
-
-    glUniform4f(loc_color, 1, 0, 0, 1.0) ### vermelho   
+    glUniform4f(loc_color, 0.88, 0.44, 0, 1.0) # esquerda
     glDrawArrays(GL_TRIANGLES, 37, 3)
