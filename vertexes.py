@@ -2,6 +2,8 @@
 # our objects without using a bunch of files.
 
 import numpy as np
+import math
+from shapes import *
 
 def get_vertexes_house():
     '''
@@ -79,3 +81,19 @@ def get_vertexes_house():
     ]
 
     return vertexes
+
+def get_vertexes_person():
+    '''
+
+    '''
+
+    cyl = cylinder(0.1,0.5)
+    sph = sphere(0.2)
+    vertexes = np.concatenate((cyl, sph))
+
+    size = []
+    size.append(len(cyl))
+    size.append(len(sph))
+    print(size)
+
+    return vertexes, size
