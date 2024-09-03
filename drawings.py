@@ -11,7 +11,7 @@ def draw_house(loc_transformation, loc_color):
     # Getting the transformation matrixes needed to move our house.
     mat_rotation_x = get_mat_rotation_x(0.02)
     mat_rotation_y = get_mat_rotation_y(0.2)
-    mat_translacao = get_mat_translation(0.5, 0.1, 0)
+    mat_translacao = get_mat_translation(0.7, 0.1, 0)
 
     # Getting a final transformation matrix and then sending it to GPU.
     mat_transform = mat_translacao @ (mat_rotation_y @ mat_rotation_x)
@@ -46,3 +46,6 @@ def draw_house(loc_transformation, loc_color):
     glDrawArrays(GL_TRIANGLES, 34, 3)
     glUniform4f(loc_color, 0.88, 0.44, 0, 1.0) # esquerda
     glDrawArrays(GL_TRIANGLES, 37, 3)
+
+def draw_tree():
+    pass
