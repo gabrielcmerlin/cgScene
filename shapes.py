@@ -63,9 +63,7 @@ def cylinder(r = 0.1, H = 0.5):
             vertices_list.append(p3)
             vertices_list.append(p1)
             vertices_list.append(p2)
-            
-            print(v)
-            
+                        
             if v == 0:
                 vertices_list.append(p0)
                 vertices_list.append(p2)

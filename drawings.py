@@ -55,20 +55,16 @@ def draw_ground(loc_transformation, loc_color, size):
     Draws a person using the same cilynder multiple times
     for the body and a sphere for the head
     '''
-    # Getting the transformation matrixes needed to move our house.
-    mat_rotation_x = get_mat_rotation_x(-0.2)
-    mat_rotation_y = get_mat_rotation_y(0.5)
-    mat_translacao = get_mat_translation(0, -0.2, 0)
+    # Getting the transformation matrix needed to move our house.
+    mat_rotation_x = get_mat_rotation_x(0.1)
 
     # Getting a final transformation matrix and then sending it to GPU.
-    mat_transform = mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    mat_transform = mat_rotation_x
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
-    # Drawing and painting the shadowed cube parts.
-    glUniform4f(loc_color, 0, 1, 0.5, 1.0) # baixo
+    # Drawing and painting the ground plan.
+    glUniform4f(loc_color, 0.17, 0.63, 0.17, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size[2], 4)
-    glUniform4f(loc_color, 0, 1, 0.5, 1.0) # direita
-    glDrawArrays(GL_TRIANGLE_STRIP, size[2]+4, 4)
 
 def draw_person(loc_transformation, loc_color, size):
     '''

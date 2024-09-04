@@ -94,26 +94,26 @@ def get_vertexes_person():
     size = []
     size.append(len(cyl))
     size.append(len(sph))
-    print(size)
 
     return vertexes, size
 
 def get_vertexes_ground():
+    '''
+    Returns an array containing all the 4 vetexes of our ground object.
 
-    # Preparing space for 40 vertexes using 3 coordinates (x,y,z).
-    vertexes = np.zeros(8, [("position", np.float32, 3)])
+    The ground is created using only a plan.
+    '''
+
+    # Preparing space for 4 vertexes using 3 coordinates (x,y,z).
+    vertexes = np.zeros(4, [("position", np.float32, 3)])
+
     # Filling the coordinates of each vertex.
     vertexes['position'] = [
         # Surface  1.
-        (-1, -0.2, -0.4),
-        (-1, 0.2, -0.2),         
-        (0, -0.2, +0.4),
-        (0, 0.2, +0.2),
-
-        # Surface 2.
-        (0, -0.2, 0.4),
-        (0, 0.2, 0.2),         
-        (1, -0.1, 1),
-        (1, 0.3, 1),
+        (-1, -1.2, -1),
+        (-1, 0.03, +1),
+        (+1, -1.2, -1),
+        (+1, 0.03,  +1),        
     ]
+
     return vertexes, len(vertexes)
