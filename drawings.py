@@ -47,15 +47,34 @@ def draw_house(loc_transformation, loc_color):
     glUniform4f(loc_color, 0.88, 0.44, 0, 1.0) # esquerda
     glDrawArrays(GL_TRIANGLES, 37, 3)
 
-def draw_tree():
-    pass
+def draw_tree(loc_transformation, loc_color, size):
+    '''
+    Draws a cylinder and a sphere above it to create a 3D tree.
+    '''
+
+    # Getting the transformation matrixes needed to move our house.
+    mat_rotation_x = get_mat_rotation_x(1.5)
+    mat_rotation_z = get_mat_rotation_z(1)
+    mat_translacao = get_mat_translation(-0.5, 0.3, -0.5)
+
+    # Getting a final transformation matrix and then sending it to GPU.
+    mat_transform = mat_translacao @ (mat_rotation_z @ mat_rotation_x)
+    glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
+    
+    # Drawing and painting the cylinder.
+    glUniform4f(loc_color, 0.4, 0.2, 0, 1.0)
+    glDrawArrays(GL_TRIANGLE_STRIP, size[3], size[4]-size[3])
+
+    # Drawing and painting the sphere.
+    glUniform4f(loc_color, 0, 0.6, 0, 1.0)
+    glDrawArrays(GL_TRIANGLE_STRIP, size[4], size[5]-size[4])
 
 def draw_ground(loc_transformation, loc_color, size):
     '''
-    Draws a person using the same cilynder multiple times
-    for the body and a sphere for the head
+    Draws a single plan (2D) to create a simple 3D ground.
     '''
-    # Getting the transformation matrix needed to move our house.
+
+    # Getting the transformation matrix needed to move our ground.
     mat_rotation_x = get_mat_rotation_x(0.1)
 
     # Getting a final transformation matrix and then sending it to GPU.
@@ -79,7 +98,6 @@ def draw_person(loc_transformation, loc_color, size):
     # Getting a final transformation matrix and then sending it to GPU.
     mat_transform = mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
-    
     
     for triangle in range(size[0],size[1],3):
         glUniform4f(loc_color, 0, 0.8, 1, 1.0)

@@ -9,7 +9,7 @@ def get_vertexes_house():
     '''
     Returns an array containg all the 40 vertexes of our house object.
 
-    The house is created positioning a pyramid above a cube.
+    The house is created by positioning a pyramid above a cube.
     '''
 
     # Preparing space for 40 vertexes using 3 coordinates (x,y,z).
@@ -97,6 +97,25 @@ def get_vertexes_person():
 
     return vertexes, size
 
+def get_vertexes_tree():
+    '''
+    Returns an array containing all the vertexes of our tree object.
+
+    The tree is created by positioning a sphere above a cylinder.
+    '''
+
+    # Generating the cylinder and sphere vertexes.
+    cyl = cylinder(0.1,0.7)
+    sph = sphere(0.3)
+    vertexes = np.concatenate((cyl, sph))
+
+    # Creating an array containing the amount of vertexes used in each shape.
+    size = []
+    size.append(len(cyl))
+    size.append(len(sph))
+
+    return vertexes, size
+
 def get_vertexes_ground():
     '''
     Returns an array containing all the 4 vetexes of our ground object.
@@ -116,4 +135,4 @@ def get_vertexes_ground():
         (+1, 0.03,  +1),        
     ]
 
-    return vertexes, len(vertexes)
+    return vertexes, [len(vertexes)]
