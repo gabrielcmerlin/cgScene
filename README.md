@@ -9,7 +9,7 @@
     - [Prerequisites](#prerequisites)
       - [Miniconda](#miniconda)
       - [Libraries](#libraries)
-      - [Graphic Server](#graphic-server)
+      - [Graphic display](#graphic-display)
     - [Main code](#main-code)
   - [Files](#files)
   - [Objects](#objects)
@@ -80,7 +80,13 @@ pip install glfw==2.7.0
 pip install pyopengl==3.1.7
 ```
 
-#### Graphic server
+#### Graphic display
+
+One of the members of the duo had trouble running OpenGL on [Wayland](https://wiki.archlinux.org/title/Wayland) display server, but the same code worked just by switching the server to [Xorg](https://wiki.archlinux.org/title/Xorg). So, if this code doesn't work properly on your machine, try changing the display server to Xorg.
+
+Below there is a photo of a Ubuntu 24.04 login screen while switching the display servers.
+
+![Photo of Ubuntu 24.04 login screen while switching display servers]()
 
 ### Main code
 
