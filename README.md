@@ -7,14 +7,14 @@
   - [Introduction](#introduction)
   - [How to run](#how-to-run)
     - [Prerequisites](#prerequisites)
-      - [Conda]()
-      - [Libraries]()
-      - [Graphic Server]()
-    - [Main code]()
-  - [Files]()
-  - [Objects]()
-  - [Transformations]()
-  - [Conclusion]()
+      - [Conda](#conda)
+      - [Libraries](#libraries)
+      - [Graphic Server](#graphic-server)
+    - [Main code](#main-code)
+  - [Files](#files)
+  - [Objects](#objects)
+  - [Transformations](#transformations)
+  - [Conclusion](#conclusion)
 
 ## Introduction
 
@@ -27,3 +27,19 @@ In this code, a 3D scene was implemented using some graphic tools, such as GLFW 
 ## How to run
 
 ### Prerequisites
+
+#### Conda
+
+#### Libraries
+
+#### Graphic server
+
+### Main code
+
+## Files
+
+## Objects
+
+## Transformations
+
+## Conclusion
