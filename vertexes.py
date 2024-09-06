@@ -86,7 +86,7 @@ def get_vertexes_person():
     '''
         Returns an array containing all the vertexes of our person object.
 
-    The tree is created by a sphere above and 5 cylinders(the same one 5 times).
+        The tree is created by a sphere above and 5 cylinders(the same one 5 times).
     '''
 
     cyl = cylinder(0.1,0.5)

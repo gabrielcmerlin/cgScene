@@ -1,4 +1,4 @@
-# File contating functions that create some object shapes, code from our professor, Jean Ponciano
+# File contating functions that create some object shapes, code from our professor (Jean Ponciano).
 
 import math
 import numpy as np
@@ -7,8 +7,9 @@ PI = 3.141592
 
 def CoordCilindro(t, h, r):
     '''
-    Convert a radius r, angle t to cartesian coordinates
+    Convert a radius r, angle t to cartesian coordinates.
     '''
+
     x = r * math.cos(t)
     y = r * math.sin(t)
     z = h
@@ -16,8 +17,9 @@ def CoordCilindro(t, h, r):
 
 def CoordSphere(u,v,r):
     '''
-    Convert a radius r, angle u and angle v to cartesian coordinates in a sphere
+    Convert a radius r, angle u and angle v to cartesian coordinates in a sphere.
     '''
+
     x = r*math.sin(v)*math.cos(u)
     y = r*math.sin(v)*math.sin(u)
     z = r*math.cos(v)
@@ -25,7 +27,7 @@ def CoordSphere(u,v,r):
 
 def cylinder(r = 0.1, H = 0.5):
     '''
-    Creates a cylinder with radius r and height H
+    Creates a cylinder with radius r and height H.
     '''
 
     num_sectors = 20 # qtd de sectors (longitude)
@@ -93,7 +95,7 @@ def cylinder(r = 0.1, H = 0.5):
 
 def sphere(r = 0.5):
     '''
-    Creates a sphere with radius r
+    Creates a sphere with radius r.
     '''
 
     num_sectors = 20 # qtd de sectors (longitude)
