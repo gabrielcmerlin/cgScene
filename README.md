@@ -5,7 +5,7 @@
 - [Computer Graphics 3D scene](#computer-graphics-3d-scene)
   - [Index](#index)
   - [Introduction](#introduction)
-  - [How to run]()
+  - [How to run](#how-to-run)
     - [Prerequisites](#prerequisites)
       - [Conda]()
       - [Libraries]()
