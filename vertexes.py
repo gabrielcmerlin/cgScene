@@ -2,7 +2,7 @@
 # our objects without using a bunch of files.
 
 import numpy as np
-import math
+import random
 from shapes import *
 
 def get_vertexes_house():
@@ -84,7 +84,9 @@ def get_vertexes_house():
 
 def get_vertexes_person():
     '''
-        Generates the cylinder and the sphere for the person
+        Returns an array containing all the vertexes of our person object.
+
+    The tree is created by a sphere above and 5 cylinders(the same one 5 times).
     '''
 
     cyl = cylinder(0.1,0.5)
@@ -116,7 +118,7 @@ def get_vertexes_tree():
 
     return vertexes, size
 
-def get_vertexes_ground():
+def get_vertexes_ground(grass):
     '''
     Returns an array containing all the 4 vetexes of our ground object.
 
@@ -124,15 +126,47 @@ def get_vertexes_ground():
     '''
 
     # Preparing space for 4 vertexes using 3 coordinates (x,y,z).
-    vertexes = np.zeros(4, [("position", np.float32, 3)])
+    ground = np.zeros(4, [("position", np.float32, 3)])
 
     # Filling the coordinates of each vertex.
-    vertexes['position'] = [
+    ground['position'] = [
         # Surface  1.
         (-1, -1.2, -1),
         (-1, 0.03, +1),
         (+1, -1.2, -1),
         (+1, 0.03,  +1),        
     ]
+    grass_vertexes = []
+    colors = []
+    delta = 0.03
+    for i in range(grass):
+        # Random vertexes, but still on the plane
+        # Since we have the ground as a plane 0x + 4y -2.46z + 2.34d = 0
+        # we can manipulate this generation selecting two random values, for y and d for example
+        # and finding the third with the formula
+        x1 = np.random.uniform(-1, 1)
+        y1 = np.random.uniform(-1.2, 0.03)
+        z1 = (4 * y1 + 2.34) / 2.46
 
-    return vertexes, [len(vertexes)]
+        # Generate new points close to the original ones with a range delta
+        x2 = x1 + np.random.uniform(-delta, delta)
+        y2 = y1 + np.random.uniform(-delta, delta)
+        z2 = (4 * y2 + 2.34) / 2.46
+        # The third point can be outside of the plane, but above, so 0x + 4y -2.46z + 2.34d > 0
+        # we do this by adding a small value to one of its coordinates
+        x3, y3, z3 = random.uniform((x1+x2)/2 - 0.1,(x1+x2)/2 + 0.1), random.uniform((y1+y2)/2 - 0.1,(y1+y2)/2 + 0.1), random.uniform((z1+z2)/2 - 0.03,(z1+z2)/2 + 0.03)
+        y3 += delta
+        colors.append(0.5 + random.uniform(0, 0.3))
+        
+        grass_vertexes.append((x1, y1, z1))
+        grass_vertexes.append((x2, y2, z2))
+        grass_vertexes.append((x3, y3, z3))
+    grass_coord = np.zeros(3 *grass, [("position", np.float32, 3)])
+    grass_coord['position'] = np.array(grass_vertexes)
+    vertexes = np.concatenate((ground, grass_coord))
+
+    size = []
+    size.append(len(ground))
+    size.append(len(grass_vertexes))
+
+    return vertexes, size, colors

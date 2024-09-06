@@ -54,8 +54,8 @@ def draw_tree(loc_transformation, loc_color, size):
 
     # Getting the transformation matrixes needed to move our house.
     mat_rotation_x = get_mat_rotation_x(1.5)
-    mat_rotation_z = get_mat_rotation_z(1)
-    mat_translacao = get_mat_translation(-0.5, 0.3, -0.5)
+    mat_rotation_z = get_mat_rotation_z(0)
+    mat_translacao = get_mat_translation(-0.5, 0.3, -0.1)
 
     # Getting a final transformation matrix and then sending it to GPU.
     mat_transform = mat_translacao @ (mat_rotation_z @ mat_rotation_x)
@@ -63,15 +63,15 @@ def draw_tree(loc_transformation, loc_color, size):
     
     # Drawing and painting the cylinder.
     glUniform4f(loc_color, 0.4, 0.2, 0, 1.0)
-    glDrawArrays(GL_TRIANGLE_STRIP, size[3], size[4]-size[3])
+    glDrawArrays(GL_TRIANGLE_STRIP, size['tree'][0], size['tree'][1] - size['tree'][0])
 
-    # Drawing and painting the sphere.
     glUniform4f(loc_color, 0, 0.6, 0, 1.0)
-    glDrawArrays(GL_TRIANGLE_STRIP, size[4], size[5]-size[4])
+    glDrawArrays(GL_TRIANGLE_STRIP, size['tree'][1], size['tree'][2] - size['tree'][1])
 
-def draw_ground(loc_transformation, loc_color, size):
+def draw_ground(loc_transformation, loc_color, size, colors):
     '''
     Draws a single plan (2D) to create a simple 3D ground.
+    then add randomly generated grass in the form of triangles
     '''
 
     # Getting the transformation matrix needed to move our ground.
@@ -83,26 +83,36 @@ def draw_ground(loc_transformation, loc_color, size):
     
     # Drawing and painting the ground plan.
     glUniform4f(loc_color, 0.17, 0.63, 0.17, 1.0)
-    glDrawArrays(GL_TRIANGLE_STRIP, size[2], 4)
+    glDrawArrays(GL_TRIANGLE_STRIP, size['ground'][0], 4)
+
+    # Generating grass colors
+    for i in range(len(colors)):
+        glUniform4f(loc_color, 0.0, colors[i], 0.0, 1.0)
+        glDrawArrays(GL_TRIANGLES, size['ground'][1] + i * 3, 3)
+        
 
 def draw_person(loc_transformation, loc_color, size):
     '''
     Draws a person using the same cilynder multiple times
     for the body and a sphere for the head
     '''
+    global_mat_rotation_x = get_mat_rotation_x(0)
+    global_mat_rotation_y = get_mat_rotation_y(0)
+    global_mat_translacao = get_mat_translation(0.5, 0, -0.1)
+    global_mat_transform = global_mat_translacao @ (global_mat_rotation_y @ global_mat_rotation_x)
+    
     # Getting the transformation matrixes needed to move our left leg.
     mat_rotation_x = get_mat_rotation_x(1)
     mat_rotation_y = get_mat_rotation_y(-1)
     mat_translacao = get_mat_translation(-0.45, 0.1, 0)
 
     # Getting a final transformation matrix and then sending it to GPU.
-    mat_transform = mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
-    
-    for triangle in range(size[0],size[1],3):
-        glUniform4f(loc_color, 0, 0.8, 1, 1.0)
-        
-        glDrawArrays(GL_TRIANGLES, triangle, 3)
+
+    glUniform4f(loc_color, 0, 0.8, 1, 1.0)
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
+
     
     # Getting the transformation matrixes needed to move our right leg.
     mat_rotation_x = get_mat_rotation_x(0.9)
@@ -110,66 +120,56 @@ def draw_person(loc_transformation, loc_color, size):
     mat_translacao = get_mat_translation(-0.4, 0.1, 0)
 
     # Getting a final transformation matrix and then sending it to GPU.
-    mat_transform = mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
-    
-    for triangle in range(size[0],size[1],3):
-        glUniform4f(loc_color, 0, 0.8, 1, 1.0)
-        
-        glDrawArrays(GL_TRIANGLES, triangle, 3)
+    glUniform4f(loc_color, 0, 0.8, 1, 1.0)
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
 
     # Getting the transformation matrixes needed to move our torso.
     mat_rotation_x = get_mat_rotation_x(math.pi/2 + 0.1)
     mat_rotation_y = get_mat_rotation_y(1)
-    mat_translacao = get_mat_translation(-0.4, 0.5, 0)
+    mat_translacao = get_mat_translation(-0.4, 0.5, -0.05)
 
-    mat_transform = mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
-    
-    for triangle in range(size[0],size[1],3):
-        glUniform4f(loc_color, 1, 0, 0, 1.0)
-        
-        glDrawArrays(GL_TRIANGLES, triangle, 3)
+    glUniform4f(loc_color, 1, 0, 0, 1.0)
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
 
     # Getting the transformation matrixes needed to move our left arm.
     mat_rotation_x = get_mat_rotation_x(-0.9)
     mat_rotation_y = get_mat_rotation_y(1)
-    mat_translacao = get_mat_translation(-0.6, 0.1, -1)
+    mat_translacao = get_mat_translation(-0.6, 0.1, -0.2)
 
-    mat_transform = mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
-    
-    for triangle in range(size[0],size[1],3):
-        glUniform4f(loc_color, 1, 0.2, 0.2, 1.0)
-        
-        glDrawArrays(GL_TRIANGLES, triangle, 3)
+    glUniform4f(loc_color, 1, 0.2, 0.2, 1.0)
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
 
     # Getting the transformation matrixes needed to move our right arm.
     mat_rotation_x = get_mat_rotation_x(-0.7)
     mat_rotation_y = get_mat_rotation_y(1)
     mat_translacao = get_mat_translation(-0.75, 0.15, 0)
 
-    mat_transform = mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
-    
-    for triangle in range(size[0],size[1],3):
-        glUniform4f(loc_color, 1, 0, 0.2, 1.0)
-        
-        glDrawArrays(GL_TRIANGLES, triangle, 3)
+    glUniform4f(loc_color, 1, 0, 0.2, 1.0)
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
 
     # Getting the transformation matrixes needed to move our head.
     mat_rotation_x = get_mat_rotation_x(1)
     mat_rotation_y = get_mat_rotation_y(1)
     mat_translacao = get_mat_translation(-0.3,0.64, 0)
 
-    mat_transform = mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
-    for triangle in range(size[1],size[2],3):
+    glUniform4f(loc_color, 1, 0.5, 0, 1.0)
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][1], size['person'][2] - size['person'][1])
+    for triangle in range(size['person'][1],size['person'][2],3):
         glUniform4f(loc_color, 1, 0.5, 0, 1.0)
         
         glDrawArrays(GL_TRIANGLES, triangle, 3)
