@@ -78,11 +78,11 @@ def draw_sun(loc_transformation, loc_color, size):
     # Getting the transformation matrixes needed to move our sun.
     mat_rotation_x = get_mat_rotation_x(0)
     mat_rotation_y = get_mat_rotation_y(0)
-    mat_rotation_z = get_mat_rotation_z(0)
-    mat_translacao = get_mat_translation(0, 0.75, 0)
+    mat_rotation_z = get_mat_rotation_z(kb.sun_rot)
+    mat_translacao = get_mat_translation(0, 0.75, 0.98)
 
     # Getting a final transformation matrix and then sending it to GPU.
-    mat_transform = mat_rotation_y @ mat_translacao @ (mat_rotation_z @ mat_rotation_x)
+    mat_transform = mat_rotation_z @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
     # Drawing and painting the traingles.
@@ -90,7 +90,6 @@ def draw_sun(loc_transformation, loc_color, size):
     for i in range (10):
         glDrawArrays(GL_TRIANGLE_STRIP, size['sun'][0] + 3*i,3)
 
-    mat_transform = mat_translacao @ (mat_rotation_z @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
 
     glUniform4f(loc_color, 1, 1, 0, 1.0)

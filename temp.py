@@ -2,8 +2,8 @@ from OpenGL.GL import *
 from config_screen import *
 from drawings import *
 from vertexes import *
-import numpy as np
-from itertools import accumulate
+from vertexes import *
+import keyboard as kb
 
 
 # Getting all the vertexes used in our project.
@@ -42,7 +42,6 @@ start = len(tree) + start
 
 # Creating the sun.
 sun, coords_sun = get_vertexes_sun()
-print(coords_sun)
 
 index_vertexes['sun'] = [start]
 for value in coords_sun:
@@ -55,13 +54,15 @@ vertexes = np.concatenate((vertexes, tree))
 vertexes = np.concatenate((vertexes, sun))
 
 print(index_vertexes)
-
 #----------------------------------------------
 # Configuring the screen used to show the objects.
 window = init_window()
 program = create_program()
 send_data_to_gpu(program, vertexes)
 render_window(window)
+
+# Activating the keyboard handler function and initializing an auxiliar variable.
+glfw.set_key_callback(window,kb.key_event)
 
 #----------------------------------------------
 # Getting GPU variables.
@@ -73,7 +74,14 @@ loc_transformation = get_loc_transformation(program)
 # Code main loop.
 while not glfw.window_should_close(window):
     # Reading user interactions.
-    glfw.poll_events() 
+    glfw.poll_events()
+    kb.sun_rot += kb.sun_speed
+
+    # Activating the polygon view mode.
+    if kb.polyMode:
+        glPolygonMode(GL_FRONT_AND_BACK,GL_LINE)
+    else:
+        glPolygonMode(GL_FRONT_AND_BACK,GL_FILL)
 
     # Clearing screen and loading a new solid background.
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)    
@@ -85,7 +93,6 @@ while not glfw.window_should_close(window):
     draw_person(loc_transformation, loc_color, index_vertexes)
     draw_tree(loc_transformation, loc_color, index_vertexes)
     draw_sun(loc_transformation, loc_color, index_vertexes)
-    
     # Displaying the next frame.
     glfw.swap_buffers(window)
 
