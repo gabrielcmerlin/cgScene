@@ -86,7 +86,7 @@ One of the members of the duo had trouble running OpenGL on [Wayland](https://wi
 
 Below there is a photo of a Ubuntu 24.04 login screen while switching the display servers.
 
-![Photo of Ubuntu 24.04 login screen while switching display servers]()
+![Photo of Ubuntu 24.04 login screen while switching display servers](./attachments/xorg.jpg)
 
 ### Main code
 
