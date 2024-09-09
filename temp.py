@@ -40,10 +40,19 @@ for value in coords_tree:
     index_vertexes['tree'].append(index_vertexes['tree'][-1] + value)
 start = len(tree) + start
 
+# Creating the sun.
+sun, coords_sun = get_vertexes_sun()
+print(coords_sun)
+
+index_vertexes['sun'] = [start]
+for value in coords_sun:
+    index_vertexes['sun'].append(index_vertexes['sun'][-1] + value)
+
 # Joining everyone
 vertexes = np.concatenate((house, person))
 vertexes = np.concatenate((vertexes, ground))
 vertexes = np.concatenate((vertexes, tree))
+vertexes = np.concatenate((vertexes, sun))
 
 print(index_vertexes)
 
@@ -75,6 +84,7 @@ while not glfw.window_should_close(window):
     draw_house(loc_transformation, loc_color)
     draw_person(loc_transformation, loc_color, index_vertexes)
     draw_tree(loc_transformation, loc_color, index_vertexes)
+    draw_sun(loc_transformation, loc_color, index_vertexes)
     
     # Displaying the next frame.
     glfw.swap_buffers(window)

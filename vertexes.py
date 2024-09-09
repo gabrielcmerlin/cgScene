@@ -118,6 +118,78 @@ def get_vertexes_tree():
 
     return vertexes, size
 
+def get_vertexes_sun():
+    '''
+    Returns an array containing all the vertexes of our sun object.
+
+    The tree is created by positioning a sphere with some triangles.
+    '''
+
+    # Preparing space for 30 vertexes using 3 coordinates (x,y,z).
+    triangles = np.zeros(30, [("position", np.float32, 3)])
+
+    # Filling the coordinates of each vertex.
+    triangles['position'] = [
+        # Triangle 1.
+        (0.05*math.cos(0), 0.05*math.sin(0), 0.9),         
+        (0.05*math.cos(math.pi/5), 0.05*math.sin(math.pi/5), 0.9),
+        (0.12*math.cos(math.pi/10), 0.12*math.sin(math.pi/10), 0.9),
+
+        # Triangle 2.
+        (0.05*math.cos(math.pi/5), 0.05*math.sin(math.pi/5), 0.9),         
+        (0.05*math.cos(2*math.pi/5), 0.05*math.sin(2*math.pi/5), 0.9),
+        (0.12*math.cos(1.5*math.pi/5), 0.12*math.sin(1.5*math.pi/5), 0.9),
+
+        # Triangle 3.
+        (0.05*math.cos(2*math.pi/5), 0.05*math.sin(2*math.pi/5), 0.9),            
+        (0.05*math.cos(3*math.pi/5), 0.05*math.sin(3*math.pi/5), 0.9),
+        (0.12*math.cos(2.5*math.pi/5), 0.12*math.sin(2.5*math.pi/5), 0.9),
+
+        # Triangle 4.
+        (0.05*math.cos(3*math.pi/5), 0.05*math.sin(3*math.pi/5), 0.9),
+        (0.05*math.cos(4*math.pi/5), 0.05*math.sin(4*math.pi/5), 0.9),
+        (0.12*math.cos(3.5*math.pi/5), 0.12*math.sin(3.5*math.pi/5), 0.9),
+
+        # Triangle 5.
+        (0.05*math.cos(4*math.pi/5), 0.05*math.sin(4*math.pi/5), 0.9),         
+        (0.05*math.cos(5*math.pi/5), 0.05*math.sin(5*math.pi/5), 0.9),
+        (0.12*math.cos(4.5*math.pi/5), 0.12*math.sin(4.5*math.pi/5), 0.9),
+        
+        # Triangle 6.
+        (0.05*math.cos(5*math.pi/5), 0.05*math.sin(5*math.pi/5), 0.9),           
+        (0.05*math.cos(6*math.pi/5), 0.05*math.sin(6*math.pi/5), 0.9),
+        (0.12*math.cos(5.5*math.pi/5), 0.12*math.sin(5.5*math.pi/5), 0.9),
+
+        # Triangle 7.
+        (0.05*math.cos(6*math.pi/5), 0.05*math.sin(6*math.pi/5), 0.9),            
+        (0.05*math.cos(7*math.pi/5), 0.05*math.sin(7*math.pi/5), 0.9),
+        (0.12*math.cos(6.5*math.pi/5), 0.12*math.sin(6.5*math.pi/5), 0.9),
+
+        # Triangle 8.
+        (0.05*math.cos(7*math.pi/5), 0.05*math.sin(7*math.pi/5), 0.9),
+        (0.05*math.cos(8*math.pi/5), 0.05*math.sin(8*math.pi/5), 0.9),
+        (0.12*math.cos(7.5*math.pi/5), 0.12*math.sin(7.5*math.pi/5), 0.9),
+
+        # Triangle 9.
+        (0.05*math.cos(8*math.pi/5), 0.05*math.sin(8*math.pi/5), 0.9),         
+        (0.05*math.cos(9*math.pi/5), 0.05*math.sin(9*math.pi/5), 0.9),
+        (0.12*math.cos(8.5*math.pi/5), 0.12*math.sin(8.5*math.pi/5), 0.9),
+        
+        # Triangle 10.
+        (0.05*math.cos(9*math.pi/5), 0.05*math.sin(9*math.pi/5), 0.9),           
+        (0.05*math.cos(10*math.pi/5), 0.05*math.sin(10*math.pi/5), 0.9),
+        (0.12*math.cos(9.5*math.pi/5), 0.12*math.sin(9.5*math.pi/5), 0.9),
+    ]
+    sph = sphere(0.07)
+    vertexes = np.concatenate((triangles, sph))
+
+    # Creating an array containing the amount of vertexes used in each shape.
+    size = []
+    size.append(len(triangles))
+    size.append(len(sph))
+
+    return vertexes, size
+
 def get_vertexes_ground(grass):
     '''
     Returns an array containing all the 4 vetexes of our ground object.

@@ -52,7 +52,7 @@ def draw_tree(loc_transformation, loc_color, size):
     Draws a cylinder and a sphere above it to create a 3D tree.
     '''
 
-    # Getting the transformation matrixes needed to move our house.
+    # Getting the transformation matrixes needed to move our tree.
     mat_rotation_x = get_mat_rotation_x(1.5)
     mat_rotation_z = get_mat_rotation_z(0)
     mat_translacao = get_mat_translation(-0.5, 0.3, -0.1)
@@ -67,6 +67,32 @@ def draw_tree(loc_transformation, loc_color, size):
 
     glUniform4f(loc_color, 0, 0.6, 0, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size['tree'][1], size['tree'][2] - size['tree'][1])
+
+def draw_sun(loc_transformation, loc_color, size):
+    '''
+    Draws a sphere with triangles acrros above it to create a 3D sun.
+    '''
+
+    # Getting the transformation matrixes needed to move our sun.
+    mat_rotation_x = get_mat_rotation_x(0)
+    mat_rotation_y = get_mat_rotation_y(0)
+    mat_rotation_z = get_mat_rotation_z(0)
+    mat_translacao = get_mat_translation(0, 0.75, 0)
+
+    # Getting a final transformation matrix and then sending it to GPU.
+    mat_transform = mat_rotation_y @ mat_translacao @ (mat_rotation_z @ mat_rotation_x)
+    glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
+    
+    # Drawing and painting the traingles.
+    glUniform4f(loc_color, 1, 0.9, 0, 1.0)
+    for i in range (10):
+        glDrawArrays(GL_TRIANGLE_STRIP, size['sun'][0] + 3*i,3)
+
+    mat_transform = mat_translacao @ (mat_rotation_z @ mat_rotation_x)
+    glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
+
+    glUniform4f(loc_color, 1, 1, 0, 1.0)
+    glDrawArrays(GL_TRIANGLE_STRIP, size['sun'][1], size['sun'][2] - size['sun'][1])
 
 def draw_ground(loc_transformation, loc_color, size, colors):
     '''
@@ -99,7 +125,8 @@ def draw_person(loc_transformation, loc_color, size):
     global_mat_rotation_x = get_mat_rotation_x(0)
     global_mat_rotation_y = get_mat_rotation_y(0)
     global_mat_translacao = get_mat_translation(0.5, 0, -0.1)
-    global_mat_transform = global_mat_translacao @ (global_mat_rotation_y @ global_mat_rotation_x)
+    global_mat_scale = get_mat_scale(0.5,0.5,0.5)
+    global_mat_transform = global_mat_translacao @ global_mat_scale @ (global_mat_rotation_y @ global_mat_rotation_x)
     
     # Getting the transformation matrixes needed to move our left leg.
     mat_rotation_x = get_mat_rotation_x(1)
