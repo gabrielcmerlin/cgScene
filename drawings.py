@@ -125,8 +125,8 @@ def draw_person(loc_transformation, loc_color, size):
     '''
     global_mat_rotation_x = get_mat_rotation_x(0)
     global_mat_rotation_y = get_mat_rotation_y(0)
-    global_mat_translacao = get_mat_translation(0.5, 0, -0.1)
-    global_mat_scale = get_mat_scale(0.5,0.5,0.5)
+    global_mat_translacao = get_mat_translation(0.5 + kb.person_step, 0, -0.4)
+    global_mat_scale = get_mat_scale(0.8,0.8,0.8)
     global_mat_transform = global_mat_translacao @ global_mat_scale @ (global_mat_rotation_y @ global_mat_rotation_x)
     
     # Getting the transformation matrixes needed to move our left leg.
