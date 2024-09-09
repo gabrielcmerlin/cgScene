@@ -107,7 +107,7 @@ def get_vertexes_tree():
     '''
 
     # Generating the cylinder and sphere vertexes.
-    cyl = cylinder(0.1,0.7)
+    cyl = cylinder(0.1,0.9)
     sph = sphere(0.3)
     vertexes = np.concatenate((cyl, sph))
 

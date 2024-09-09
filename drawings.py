@@ -2,6 +2,7 @@
 
 from OpenGL.GL import *
 from geometric_transf import *
+import keyboard as kb
 
 def draw_house(loc_transformation, loc_color):
     '''
@@ -55,10 +56,11 @@ def draw_tree(loc_transformation, loc_color, size):
     # Getting the transformation matrixes needed to move our house.
     mat_rotation_x = get_mat_rotation_x(1.5)
     mat_rotation_z = get_mat_rotation_z(0)
+    mat_scale      = get_mat_scale(kb.tree_scale, kb.tree_scale, kb.tree_scale)
     mat_translacao = get_mat_translation(-0.5, 0.3, -0.1)
 
     # Getting a final transformation matrix and then sending it to GPU.
-    mat_transform = mat_translacao @ (mat_rotation_z @ mat_rotation_x)
+    mat_transform = mat_translacao @ (mat_scale @ (mat_rotation_z @ mat_rotation_x))
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
     # Drawing and painting the cylinder.
