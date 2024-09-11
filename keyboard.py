@@ -7,6 +7,7 @@ tree_scale = 1
 sun_rot = 0
 sun_speed = 0
 person_step = 0
+person_speed = 0
 
 def key_event(window,key,scancode,action,mods):
     global polyMode
@@ -14,6 +15,7 @@ def key_event(window,key,scancode,action,mods):
     global sun_rot
     global sun_speed
     global person_step
+    global person_speed
 
     if key == 80 and action == glfw.PRESS: 
         polyMode = not polyMode
@@ -25,10 +27,10 @@ def key_event(window,key,scancode,action,mods):
         tree_scale -= 0.1
 
     if key == 263 and action == glfw.PRESS:
-        person_step -= 0.1
+        person_speed -= 0.03
 
     if key == 262 and action == glfw.PRESS:
-        person_step += 0.1
+        person_speed += 0.03
         
     if key == 65 and action == glfw.PRESS:
         sun_speed += 0.01

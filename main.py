@@ -5,7 +5,6 @@ from vertexes import *
 from vertexes import *
 import keyboard as kb
 
-
 # Getting all the vertexes used in our project.
 
 # Creating the house.
@@ -76,6 +75,7 @@ while not glfw.window_should_close(window):
     # Reading user interactions.
     glfw.poll_events()
     kb.sun_rot += kb.sun_speed
+    kb.person_step += kb.person_speed
 
     # Activating the polygon view mode.
     if kb.polyMode:
@@ -93,9 +93,8 @@ while not glfw.window_should_close(window):
     draw_person(loc_transformation, loc_color, index_vertexes)
     draw_tree(loc_transformation, loc_color, index_vertexes)
     draw_sun(loc_transformation, loc_color, index_vertexes)
+
     # Displaying the next frame.
     glfw.swap_buffers(window)
 
 glfw.terminate()
-#Rodar isso no terminal pra funcionar
-#export PYOPENGL_PLATFORM=osmesa
