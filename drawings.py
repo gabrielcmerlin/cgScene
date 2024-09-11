@@ -123,80 +123,30 @@ def draw_person(loc_transformation, loc_color, size):
     Draws a person using the same cilynder multiple times
     for the body and a sphere for the head
     '''
-    global_mat_rotation_x = get_mat_rotation_x(0)
-    global_mat_rotation_y = get_mat_rotation_y(0)
-    global_mat_translacao = get_mat_translation(kb.person_step, -0.6, -0.8)
-    global_mat_scale = get_mat_scale(0.8,0.8,0.8)
-    global_mat_transform = global_mat_translacao @ global_mat_scale @ (global_mat_rotation_y @ global_mat_rotation_x)
+    mat_rotation_x = get_mat_rotation_x(0)
+    mat_rotation_y = get_mat_rotation_y(0)
+    mat_translacao = get_mat_translation(kb.person_step, -0.6, -0.8)
+    mat_scale = get_mat_scale(0.8,0.8,0.8)
+    mat_transform = mat_translacao @ mat_scale @ (mat_rotation_y @ mat_rotation_x)
     
-    # Getting the transformation matrixes needed to move our left leg.
-    mat_rotation_x = get_mat_rotation_x(1)
-    mat_rotation_y = get_mat_rotation_y(-1)
-    mat_translacao = get_mat_translation(-0.45, 0.1, 0)
-
-    # Getting a final transformation matrix and then sending it to GPU.
-    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
 
     glUniform4f(loc_color, 0, 0.8, 1, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
-
-    # Getting the transformation matrixes needed to move our right leg.
-    mat_rotation_x = get_mat_rotation_x(0.9)
-    mat_rotation_y = get_mat_rotation_y(0.6)
-    mat_translacao = get_mat_translation(-0.4, 0.1, 0)
-
-    # Getting a final transformation matrix and then sending it to GPU.
-    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
-    glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
     glUniform4f(loc_color, 0, 0.8, 1, 1.0)
-    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
-
-    # Getting the transformation matrixes needed to move our torso.
-    mat_rotation_x = get_mat_rotation_x(math.pi/2 + 0.1)
-    mat_rotation_y = get_mat_rotation_y(1)
-    mat_translacao = get_mat_translation(-0.4, 0.5, -0.05)
-
-    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
-    glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][1], size['person'][2] - size['person'][1])
     
     glUniform4f(loc_color, 1, 0, 0, 1.0)
-    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
-
-    # Getting the transformation matrixes needed to move our left arm.
-    mat_rotation_x = get_mat_rotation_x(-0.9)
-    mat_rotation_y = get_mat_rotation_y(1)
-    mat_translacao = get_mat_translation(-0.6, 0.1, -0.2)
-
-    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
-    glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][2], size['person'][3] - size['person'][2])
     
     glUniform4f(loc_color, 1, 0.2, 0.2, 1.0)
-    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
-
-    # Getting the transformation matrixes needed to move our right arm.
-    mat_rotation_x = get_mat_rotation_x(-0.7)
-    mat_rotation_y = get_mat_rotation_y(1)
-    mat_translacao = get_mat_translation(-0.75, 0.15, 0)
-
-    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
-    glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][3], size['person'][4] - size['person'][3])
     
     glUniform4f(loc_color, 1, 0, 0.2, 1.0)
-    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][4], size['person'][5] - size['person'][4])
 
     # Getting the transformation matrixes needed to move our head.
-    mat_rotation_x = get_mat_rotation_x(1)
-    mat_rotation_y = get_mat_rotation_y(1)
-    mat_translacao = get_mat_translation(-0.3,0.64, 0)
-
-    mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
-    glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
     glUniform4f(loc_color, 0.83, 0.73, 0.63, 1.0)
-    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][1], size['person'][2] - size['person'][1])
-    for triangle in range(size['person'][1],size['person'][2],3):
-        glUniform4f(loc_color, 1, 0.5, 0, 1.0)
-        
-        glDrawArrays(GL_TRIANGLES, triangle, 3)
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][5], size['person'][6] - size['person'][5])

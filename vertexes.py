@@ -3,6 +3,7 @@
 
 import numpy as np
 import random
+from geometric_transf import *
 from shapes import *
 
 def get_vertexes_house():
@@ -88,13 +89,101 @@ def get_vertexes_person():
 
         The tree is created by a sphere above and 5 cylinders(the same one 5 times).
     '''
+    # Used to adjust the shape of the position arrays
+    ones_column_cyl = np.ones((2520,1))
+    ones_column_sph = np.ones((2400,1))
 
-    cyl = cylinder(0.1,0.5)
+    # Generating and positioning the left leg. We already move it in the CPU
+    mat_rotation_x = get_mat_rotation_x(1)
+    mat_rotation_y = get_mat_rotation_y(-1)
+    mat_translacao = get_mat_translation(-0.45, 0.1, 0)
+
+    mat_transform =  mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    
+    left_leg = cylinder(0.1,0.5)
+    left_leg_temp = np.zeros(left_leg['position'].shape[0], [("position", np.float32, 4)])
+    left_leg_temp['position'] = np.concatenate((left_leg['position'], ones_column_cyl), axis=1) 
+    left_leg_temp['position'] = (mat_transform @ left_leg_temp['position'].T).T 
+    left_leg['position'] = left_leg_temp['position'][:, :3]
+    
+    # Generating and positioning the right leg. We already move it in the CPU
+    mat_rotation_x = get_mat_rotation_x(0.9)
+    mat_rotation_y = get_mat_rotation_y(0.6)
+    mat_translacao = get_mat_translation(-0.4, 0.1, 0)
+
+    mat_transform =  mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    
+    right_leg = cylinder(0.1,0.5)
+    right_leg_temp = np.zeros(right_leg['position'].shape[0], [("position", np.float32, 4)])
+    right_leg_temp['position'] = np.concatenate((right_leg['position'], ones_column_cyl), axis=1) 
+    right_leg_temp['position'] = (mat_transform @ right_leg_temp['position'].T).T 
+    right_leg['position'] = right_leg_temp['position'][:, :3]
+
+    # Generating and positioning the torso. We already move it in the CPU
+    mat_rotation_x = get_mat_rotation_x(math.pi/2 + 0.1)
+    mat_rotation_y = get_mat_rotation_y(1)
+    mat_translacao = get_mat_translation(-0.4, 0.5, -0.05)
+
+    mat_transform =  mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    
+    torso = cylinder(0.1,0.5)
+    torso_temp = np.zeros(torso['position'].shape[0], [("position", np.float32, 4)])
+    torso_temp['position'] = np.concatenate((torso['position'], ones_column_cyl), axis=1) 
+    torso_temp['position'] = (mat_transform @ torso_temp['position'].T).T 
+    torso['position'] = torso_temp['position'][:, :3]
+
+    # Generating and positioning the left arm. We already move it in the CPU
+    mat_rotation_x = get_mat_rotation_x(-0.9)
+    mat_rotation_y = get_mat_rotation_y(1)
+    mat_translacao = get_mat_translation(-0.6, 0.1, -0.2)
+
+    mat_transform =  mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    
+    left_arm = cylinder(0.1,0.5)
+    left_arm_temp = np.zeros(left_arm['position'].shape[0], [("position", np.float32, 4)])
+    left_arm_temp['position'] = np.concatenate((left_arm['position'], ones_column_cyl), axis=1) 
+    left_arm_temp['position'] = (mat_transform @ left_arm_temp['position'].T).T 
+    left_arm['position'] = left_arm_temp['position'][:, :3]
+
+    # Generating and positioning the right arm. We already move it in the CPU
+    mat_rotation_x = get_mat_rotation_x(-0.7)
+    mat_rotation_y = get_mat_rotation_y(1)
+    mat_translacao = get_mat_translation(-0.75, 0.15, 0)
+
+    mat_transform =  mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+    
+    right_arm = cylinder(0.1,0.5)
+    right_arm_temp = np.zeros(right_arm['position'].shape[0], [("position", np.float32, 4)])
+    right_arm_temp['position'] = np.concatenate((right_arm['position'], ones_column_cyl), axis=1) 
+    right_arm_temp['position'] = (mat_transform @ right_arm_temp['position'].T).T 
+    right_arm['position'] = right_arm_temp['position'][:, :3]
+    
+    # Generating and positioning the head. We already move it in the CPU
+    mat_rotation_x = get_mat_rotation_x(1)
+    mat_rotation_y = get_mat_rotation_y(1)
+    mat_translacao = get_mat_translation(-0.3,0.64, 0)
+
+    mat_transform =  mat_translacao @ (mat_rotation_y @ mat_rotation_x)
+
     sph = sphere(0.2)
-    vertexes = np.concatenate((cyl, sph))
+    sph_temp = np.zeros(sph['position'].shape[0], [("position", np.float32, 4)])
+    sph_temp['position'] = np.concatenate((sph['position'], ones_column_sph), axis=1) 
+    sph_temp['position'] = (mat_transform @ sph_temp['position'].T).T 
+    sph['position'] = sph_temp['position'][:, :3]
+    
+
+    vertexes = np.concatenate((left_leg, right_leg))
+    vertexes = np.concatenate((vertexes, torso))
+    vertexes = np.concatenate((vertexes, left_arm))
+    vertexes = np.concatenate((vertexes, right_arm))
+    vertexes = np.concatenate((vertexes, sph))
 
     size = []
-    size.append(len(cyl))
+    size.append(len(left_leg))
+    size.append(len(right_leg))
+    size.append(len(torso))
+    size.append(len(left_arm))
+    size.append(len(right_arm))
     size.append(len(sph))
 
     return vertexes, size
@@ -233,7 +322,6 @@ def get_vertexes_ground(grass):
         grass_vertexes.append((x1, y1, z1))
         grass_vertexes.append((x2, y2, z2))
         grass_vertexes.append((x3, y3, z3))
-        
     grass_coord = np.zeros(3 *grass, [("position", np.float32, 3)])
     grass_coord['position'] = np.array(grass_vertexes)
     vertexes = np.concatenate((ground, grass_coord))
