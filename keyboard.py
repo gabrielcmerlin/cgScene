@@ -35,5 +35,5 @@ def key_event(window,key,scancode,action,mods):
     if key == 65 and action == glfw.PRESS:
         sun_speed += 0.01
 
-    if key == 68 and action == glfw.PRESS:
+    if key == 83 and action == glfw.PRESS:
         sun_speed -= 0.01

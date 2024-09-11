@@ -141,7 +141,6 @@ def draw_person(loc_transformation, loc_color, size):
     glUniform4f(loc_color, 0, 0.8, 1, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
 
-    
     # Getting the transformation matrixes needed to move our right leg.
     mat_rotation_x = get_mat_rotation_x(0.9)
     mat_rotation_y = get_mat_rotation_y(0.6)
@@ -195,7 +194,7 @@ def draw_person(loc_transformation, loc_color, size):
     mat_transform = global_mat_transform @ mat_translacao @ (mat_rotation_y @ mat_rotation_x)
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
     
-    glUniform4f(loc_color, 1, 0.5, 0, 1.0)
+    glUniform4f(loc_color, 0.83, 0.73, 0.63, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size['person'][1], size['person'][2] - size['person'][1])
     for triangle in range(size['person'][1],size['person'][2],3):
         glUniform4f(loc_color, 1, 0.5, 0, 1.0)

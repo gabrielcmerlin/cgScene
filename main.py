@@ -52,7 +52,6 @@ vertexes = np.concatenate((vertexes, ground))
 vertexes = np.concatenate((vertexes, tree))
 vertexes = np.concatenate((vertexes, sun))
 
-print(index_vertexes)
 #----------------------------------------------
 # Configuring the screen used to show the objects.
 window = init_window()
