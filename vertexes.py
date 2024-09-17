@@ -323,7 +323,7 @@ def get_vertexes_ground(grass):
         grass_vertexes.append((x1, y1, z1))
         grass_vertexes.append((x2, y2, z2))
         grass_vertexes.append((x3, y3, z3))
-    grass_coord = np.zeros(3 *grass, [("position", np.float32, 3)])
+    grass_coord = np.zeros(3 * grass, [("position", np.float32, 3)])
     grass_coord['position'] = np.array(grass_vertexes)
     vertexes = np.concatenate((ground, grass_coord))
 

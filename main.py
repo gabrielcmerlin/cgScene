@@ -82,11 +82,11 @@ while not glfw.window_should_close(window):
     glClearColor(1.0, 1.0, 1.0, 1.0)
 
     # Drawing the objects.
-    draw_ground(loc_transformation, loc_color, index_vertexes, colors)
-    draw_house(loc_transformation, loc_color)
-    draw_person(loc_transformation, loc_color, index_vertexes)
+    # draw_ground(loc_transformation, loc_color, index_vertexes, colors)
+    # draw_house(loc_transformation, loc_color)
+    # draw_person(loc_transformation, loc_color, index_vertexes)
     draw_tree(loc_transformation, loc_color, index_vertexes)
-    draw_sun(loc_transformation, loc_color, index_vertexes)
+    # draw_sun(loc_transformation, loc_color, index_vertexes)
 
     # Displaying the next frame.
     glfw.swap_buffers(window)
