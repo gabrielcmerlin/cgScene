@@ -98,7 +98,7 @@ def draw_sun(loc_transformation, loc_color, size):
 def draw_ground(loc_transformation, loc_color, size, colors):
     '''
     Draws a single plan (2D) to create a simple 3D ground.
-    then add randomly generated grass in the form of triangles
+    then add randomly generated grass in the form of triangles.
     '''
 
     # Getting the transformation matrix needed to move our ground.
@@ -112,7 +112,7 @@ def draw_ground(loc_transformation, loc_color, size, colors):
     glUniform4f(loc_color, 0.17, 0.63, 0.17, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size['ground'][0], 4)
 
-    # Generating grass colors
+    # Generating grass colors.
     for i in range(len(colors)):
         glUniform4f(loc_color, 0.0, colors[i], 0.0, 1.0)
         glDrawArrays(GL_TRIANGLES, size['ground'][1] + i * 3, 3)
@@ -121,32 +121,39 @@ def draw_ground(loc_transformation, loc_color, size, colors):
 def draw_person(loc_transformation, loc_color, size):
     '''
     Draws a person using the same cilynder multiple times
-    for the body and a sphere for the head
+    for the body and a sphere for the head.
     '''
+
+    # Getting the transformation matrixes needed to move our ground.
     mat_rotation_x = get_mat_rotation_x(0)
     mat_rotation_y = get_mat_rotation_y(0)
     mat_translacao = get_mat_translation(kb.person_step, -0.6, -0.8)
     mat_scale = get_mat_scale(0.8,0.8,0.8)
+
+    # Getting a final transformation matrix and then sending it to GPU.
     mat_transform = mat_translacao @ mat_scale @ (mat_rotation_y @ mat_rotation_x)
-    
     glUniformMatrix4fv(loc_transformation, 1, GL_TRUE, mat_transform) 
 
+    # Drawing and painting the left leg.
     glUniform4f(loc_color, 0, 0.8, 1, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size['person'][0], size['person'][1] - size['person'][0])
     
+    # Drawing and painting the right leg.
     glUniform4f(loc_color, 0, 0.8, 1, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size['person'][1], size['person'][2] - size['person'][1])
     
+    # Drawing and painting the torso.
     glUniform4f(loc_color, 1, 0, 0, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size['person'][2], size['person'][3] - size['person'][2])
     
-    glUniform4f(loc_color, 1, 0.2, 0.2, 1.0)
-    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][3], size['person'][4] - size['person'][3])
-    
+    # Drawing and painting the left arm.
     glUniform4f(loc_color, 1, 0, 0.2, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size['person'][4], size['person'][5] - size['person'][4])
 
-    # Getting the transformation matrixes needed to move our head.
+    # Drawing and painting the right arm.
+    glUniform4f(loc_color, 1, 0.2, 0.2, 1.0)
+    glDrawArrays(GL_TRIANGLE_STRIP, size['person'][3], size['person'][4] - size['person'][3])
     
+    # Drawing and painting the head.
     glUniform4f(loc_color, 0.83, 0.73, 0.63, 1.0)
     glDrawArrays(GL_TRIANGLE_STRIP, size['person'][5], size['person'][6] - size['person'][5])

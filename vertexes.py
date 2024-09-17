@@ -89,11 +89,12 @@ def get_vertexes_person():
 
         The tree is created by a sphere above and 5 cylinders(the same one 5 times).
     '''
-    # Used to adjust the shape of the position arrays
+
+    # Used to adjust the shape of the position arrays.
     ones_column_cyl = np.ones((2520,1))
     ones_column_sph = np.ones((2400,1))
 
-    # Generating and positioning the left leg. We already move it in the CPU
+    # Generating and positioning the left leg. We already move it in the CPU.
     mat_rotation_x = get_mat_rotation_x(1)
     mat_rotation_y = get_mat_rotation_y(-1)
     mat_translacao = get_mat_translation(-0.45, 0.1, 0)
@@ -106,7 +107,7 @@ def get_vertexes_person():
     left_leg_temp['position'] = (mat_transform @ left_leg_temp['position'].T).T 
     left_leg['position'] = left_leg_temp['position'][:, :3]
     
-    # Generating and positioning the right leg. We already move it in the CPU
+    # Generating and positioning the right leg. We already move it in the CPU.
     mat_rotation_x = get_mat_rotation_x(0.9)
     mat_rotation_y = get_mat_rotation_y(0.6)
     mat_translacao = get_mat_translation(-0.4, 0.1, 0)
@@ -119,7 +120,7 @@ def get_vertexes_person():
     right_leg_temp['position'] = (mat_transform @ right_leg_temp['position'].T).T 
     right_leg['position'] = right_leg_temp['position'][:, :3]
 
-    # Generating and positioning the torso. We already move it in the CPU
+    # Generating and positioning the torso. We already move it in the CPU.
     mat_rotation_x = get_mat_rotation_x(math.pi/2 + 0.1)
     mat_rotation_y = get_mat_rotation_y(1)
     mat_translacao = get_mat_translation(-0.4, 0.5, -0.05)
@@ -132,7 +133,7 @@ def get_vertexes_person():
     torso_temp['position'] = (mat_transform @ torso_temp['position'].T).T 
     torso['position'] = torso_temp['position'][:, :3]
 
-    # Generating and positioning the left arm. We already move it in the CPU
+    # Generating and positioning the left arm. We already move it in the CPU.
     mat_rotation_x = get_mat_rotation_x(-0.9)
     mat_rotation_y = get_mat_rotation_y(1)
     mat_translacao = get_mat_translation(-0.6, 0.1, -0.2)
@@ -145,7 +146,7 @@ def get_vertexes_person():
     left_arm_temp['position'] = (mat_transform @ left_arm_temp['position'].T).T 
     left_arm['position'] = left_arm_temp['position'][:, :3]
 
-    # Generating and positioning the right arm. We already move it in the CPU
+    # Generating and positioning the right arm. We already move it in the CPU.
     mat_rotation_x = get_mat_rotation_x(-0.7)
     mat_rotation_y = get_mat_rotation_y(1)
     mat_translacao = get_mat_translation(-0.75, 0.15, 0)
@@ -158,7 +159,7 @@ def get_vertexes_person():
     right_arm_temp['position'] = (mat_transform @ right_arm_temp['position'].T).T 
     right_arm['position'] = right_arm_temp['position'][:, :3]
     
-    # Generating and positioning the head. We already move it in the CPU
+    # Generating and positioning the head. We already move it in the CPU.
     mat_rotation_x = get_mat_rotation_x(1)
     mat_rotation_y = get_mat_rotation_y(1)
     mat_translacao = get_mat_translation(-0.3,0.64, 0)
@@ -301,20 +302,20 @@ def get_vertexes_ground(grass):
     colors = []
     delta = 0.03
     for i in range(grass):
-        # Random vertexes, but still on the plane
-        # Since we have the ground as a plane 0x + 4y -2.46z + 2.34d = 0
-        # we can manipulate this generation selecting two random values, for y and d for example
-        # and finding the third with the formula
+        # Random vertexes, but still on the plane.
+        # Since we have the ground as a plane 0x + 4y -2.46z + 2.34d = 0, we can 
+        # manipulate this generation selecting two random values, for y and d for 
+        # example and finding the third with the formula.
         x1 = np.random.uniform(-1, 1)
         y1 = np.random.uniform(-1.2, 0.03)
         z1 = (4 * y1 + 2.34) / 2.46
 
-        # Generate new points close to the original ones with a range delta
+        # Generate new points close to the original ones with a range delta.
         x2 = x1 + np.random.uniform(-delta, delta)
         y2 = y1 + np.random.uniform(-delta, delta)
         z2 = (4 * y2 + 2.34) / 2.46
         # The third point can be outside of the plane, but above, so 0x + 4y -2.46z + 2.34d > 0
-        # we do this by adding a small value to one of its coordinates
+        # we do this by adding a small value to one of its coordinates.
         x3, y3, z3 = random.uniform((x1+x2)/2 - 0.1,(x1+x2)/2 + 0.1), random.uniform((y1+y2)/2 - 0.1,(y1+y2)/2 + 0.1), random.uniform((z1+z2)/2 - 0.03,(z1+z2)/2 + 0.03)
         y3 += delta
         colors.append(0.5 + random.uniform(0, 0.3))
