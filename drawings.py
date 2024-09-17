@@ -57,7 +57,7 @@ def draw_tree(loc_transformation, loc_color, size):
     mat_rotation_x = get_mat_rotation_x(1.5)
     mat_rotation_z = get_mat_rotation_z(0)
     mat_scale      = get_mat_scale(kb.tree_scale, kb.tree_scale, kb.tree_scale)
-    mat_translacao = get_mat_translation(0, 0, 0)
+    mat_translacao = get_mat_translation(-0.5, 0.3, -0.1)
 
     # Getting a final transformation matrix and then sending it to GPU.
     mat_transform = mat_translacao @ (mat_scale @ (mat_rotation_z @ mat_rotation_x))
