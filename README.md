@@ -32,7 +32,7 @@ Here is described what you must do to have everything needed to run this code.
 
 #### Miniconda
 
-The use of miniconda is recommended in order to prevent already installed packages from having conflicts with the ones we will install next.
+The use of miniconda is recommended in order to prevent already installed packages from having conflicts with the ones we will install.
 
 1. Download Miniconda installer:
 
@@ -90,7 +90,7 @@ Below there is a photo of a Ubuntu 24.04 login screen while switching the displa
 
 ### Main code
 
-We used several files in order to modularize our code, so we needed a main file to be able to run the project. To do this, you just need to type:
+We used several files in order to modularize our code, so we needed a main file to be able to run the project. To run it, you just need to type:
 
 ```bash
 python3 main.py
@@ -102,7 +102,7 @@ As said above we used a bunch of files while modularizing the code. More specifi
 
 - main.py: The hub used to connect all the other files.
 - config_screen.py: Contains functions that are used to configure the screen that is used to show the drawings.
-- geometric_transf.py: Returns all kind of geometric transformations (translation, rotation and scale) in the appropriate numpy shape.
+- geometric_transf.py: Returns all kind of geometric transformations matrixes (translation, rotation and scale) in the appropriate numpy shape.
 - keyboard.py: Handles the user interaction through keyboard.
 - shapes.py: Recycled code from our professor (Jean Roberto Ponciano) used to create more complex shapes, such as spheres and cylinders.
 - vertexes.py: Creates in CPU all the needed vertexes of our objects.
