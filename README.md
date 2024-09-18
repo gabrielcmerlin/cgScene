@@ -19,7 +19,6 @@
 ## Introduction
 
 This project was done as part of the Computer Graphics discipline taught in the second semester of 2024 by the professor Jean Roberto Ponciano. The code was produced by the duo composed by Artur de Vlieger Lima and Gabriel da Costa Merlin.
-This project was done as part of the Computer Graphics discipline taught in the second semester of 2024 by the professor Jean Roberto Ponciano. The code was produced by the duo composed by Artur de Vlieger Lima and Gabriel da Costa Merlin.
 
 In this code, a 3D scene was implemented using some graphic tools, such as GLFW to manage windows and OpenGL to handle the graphic computing. Our main goal was to create a landscape using 5 composed objects (combination of primitives - pyramid, cube, sphere, etc) and to move some of them using the keyboard to add geometric transformations.
 
