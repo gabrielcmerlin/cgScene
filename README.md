@@ -110,7 +110,7 @@ As said above we used a bunch of files while modularizing the code. More specifi
 
 ## Objects
 
-We used five different objects tocompose our desired 3D scene, being them:
+We used five different objects to compose our desired 3D scene, being them:
 
 **OBS**: All the pictures below were got after pressing the P key to show objects' mesh.
 
@@ -146,15 +146,11 @@ The user is able to control the scene by forcing 3 different geometric transform
 
 ![Rotation photo](./attachments/rotation.gif)
 
-- Scale: The tree grows by pressing the ↑ or ↓ keys.
+- Scale: The tree resizes by pressing the ↑ or ↓ keys.
 
 ![Scale photo](./attachments/scale.gif)
 
 ## Conclusion
-
-In this project, we put into practice different Computer Graphics concepts, such as shaders and geometric transformations, which helped us to solidify our studies.
-
-Finally, we would like to thank our professor Jean Roberto Ponciano for the classes and the acquired knowledge.
 
 In this project, we put into practice different Computer Graphics concepts, such as shaders and geometric transformations, which helped us to solidify our studies.
 
